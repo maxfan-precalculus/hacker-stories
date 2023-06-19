@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {useState} from 'react';
 
-function App() {
+const App = () => {
+  const stories =[{"title":"React","author":"Adeline"},
+      {"title":"Research","author":"Sophia"}]
+  const [search, setSearch] = useState();
+  const filteredStories = stories.filter((item) => item.title.toLowerCase == search);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search></Search>
+      <List stories={filteredStories}></List>
     </div>
   );
 }
+
+const Search = (props) => {
+  <div>
+      <label htmlFor='search'>Search:</label>
+      <input id='search'></input>
+  </div>
+
+}
+const List = (props) => (
+   props.stories.map( (item) => (
+      <li><Item item={item}></Item></li>
+    )
+   )
+)
+const Item = (props) => (
+  <div>
+ <label>{props.item.title}</label> 
+ <label>{props.item.author}</label> 
+ </div>
+)
 
 export default App;
